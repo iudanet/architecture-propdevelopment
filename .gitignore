@@ -2,7 +2,6 @@
 tmp/
 
 # служебные файлы
-.claude/
 *.swp
 .DS_Store
 

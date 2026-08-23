@@ -1,0 +1,123 @@
+# Доступ к секретам: специалист по ИБ - во всех namespace,
+# ведущий DevOps домена - в своём и только на время задачи (Just-In-Time).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: security-secret-access
+  namespace: sales
+  labels:
+    propdev.ru/binding: privileged
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: security-secret-access
+  namespace: gku
+  labels:
+    propdev.ru/binding: privileged
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: security-secret-access
+  namespace: finance
+  labels:
+    propdev.ru/binding: privileged
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: security-secret-access
+  namespace: data
+  labels:
+    propdev.ru/binding: privileged
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: security-secret-access
+  namespace: integration
+  labels:
+    propdev.ru/binding: privileged
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: security-secret-access
+  namespace: security
+  labels:
+    propdev.ru/binding: privileged
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Временный доступ ведущего DevOps домена ЖКУ к секретам своего namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gku-lead-secret-access
+  namespace: gku
+  labels:
+    propdev.ru/binding: privileged
+  annotations:
+    propdev.ru/access-type: just-in-time
+    propdev.ru/ticket: SEC-1042
+subjects:
+  - kind: Group
+    name: propdev:operators:gku:lead
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io

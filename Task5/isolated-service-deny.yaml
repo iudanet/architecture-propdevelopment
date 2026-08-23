@@ -1,0 +1,40 @@
+---
+# Изоляция нового сервиса: другие поды namespace не могут с ним взаимодействовать.
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: isolated-service-deny-ingress
+spec:
+  podSelector:
+    matchLabels:
+      role: isolated-service
+  policyTypes:
+    - Ingress
+  ingress: []
+
+---
+# Исходящий трафик разрешён только к DNS: сервис не обращается к другим подам
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: isolated-service-egress-dns-only
+spec:
+  podSelector:
+    matchLabels:
+      role: isolated-service
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53

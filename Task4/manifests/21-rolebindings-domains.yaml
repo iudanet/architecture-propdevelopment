@@ -1,0 +1,209 @@
+# Привязки уровня namespace: ClusterRole через RoleBinding действует
+# только в своём домене.
+
+# --- Домен sales ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developers-view
+  namespace: sales
+  labels:
+    propdev.ru/binding: readonly
+subjects:
+  - kind: Group
+    name: propdev:developers:sales
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: operators-configure
+  namespace: sales
+  labels:
+    propdev.ru/binding: configure
+subjects:
+  - kind: Group
+    name: propdev:operators:sales
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-operator
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ci-deploy
+  namespace: sales
+  labels:
+    propdev.ru/binding: deploy
+subjects:
+  - kind: ServiceAccount
+    name: ci-deployer
+    namespace: sales
+roleRef:
+  kind: ClusterRole
+  name: ci-deployer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# --- Домен gku ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developers-view
+  namespace: gku
+  labels:
+    propdev.ru/binding: readonly
+subjects:
+  - kind: Group
+    name: propdev:developers:gku
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: operators-configure
+  namespace: gku
+  labels:
+    propdev.ru/binding: configure
+subjects:
+  - kind: Group
+    name: propdev:operators:gku
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-operator
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ci-deploy
+  namespace: gku
+  labels:
+    propdev.ru/binding: deploy
+subjects:
+  - kind: ServiceAccount
+    name: ci-deployer
+    namespace: gku
+roleRef:
+  kind: ClusterRole
+  name: ci-deployer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# --- Домен finance ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developers-view
+  namespace: finance
+  labels:
+    propdev.ru/binding: readonly
+subjects:
+  - kind: Group
+    name: propdev:developers:finance
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: operators-configure
+  namespace: finance
+  labels:
+    propdev.ru/binding: configure
+subjects:
+  - kind: Group
+    name: propdev:operators:finance
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-operator
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ci-deploy
+  namespace: finance
+  labels:
+    propdev.ru/binding: deploy
+subjects:
+  - kind: ServiceAccount
+    name: ci-deployer
+    namespace: finance
+roleRef:
+  kind: ClusterRole
+  name: ci-deployer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# --- Домен data ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developers-view
+  namespace: data
+  labels:
+    propdev.ru/binding: readonly
+subjects:
+  - kind: Group
+    name: propdev:developers:data
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: operators-configure
+  namespace: data
+  labels:
+    propdev.ru/binding: configure
+subjects:
+  - kind: Group
+    name: propdev:operators:data
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: namespace-operator
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ci-deploy
+  namespace: data
+  labels:
+    propdev.ru/binding: deploy
+subjects:
+  - kind: ServiceAccount
+    name: ci-deployer
+    namespace: data
+roleRef:
+  kind: ClusterRole
+  name: ci-deployer
+  apiGroup: rbac.authorization.k8s.io

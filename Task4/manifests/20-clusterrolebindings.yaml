@@ -1,0 +1,54 @@
+# Привязки уровня кластера. Субъект - группа из поля O сертификата,
+# поэтому включение сотрудника в команду не требует изменений в кластере.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: propdev-viewers
+  labels:
+    propdev.ru/binding: readonly
+subjects:
+  - kind: Group
+    name: propdev:viewers
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Администрирование кластера: платформенная команда
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: propdev-platform-admin
+  labels:
+    propdev.ru/binding: admin
+subjects:
+  - kind: Group
+    name: propdev:platform
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: platform-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Аудит конфигурации безопасности: специалист по ИБ и внешние аудиторы
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: propdev-security-auditor
+  labels:
+    propdev.ru/binding: audit
+subjects:
+  - kind: Group
+    name: propdev:security
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: propdev:auditors
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: security-auditor
+  apiGroup: rbac.authorization.k8s.io
