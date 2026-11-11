@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sales
+  labels:
+    propdev.ru/domain: sales
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gku
+  labels:
+    propdev.ru/domain: gku
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: finance
+  labels:
+    propdev.ru/domain: finance
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data
+  labels:
+    propdev.ru/domain: data
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: integration
+  labels:
+    propdev.ru/domain: integration
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: security
+  labels:
+    propdev.ru/domain: security
